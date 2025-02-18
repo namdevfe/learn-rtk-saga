@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from './store'
 import {
   decrease,
@@ -7,6 +8,7 @@ import {
   selectCount,
   selectCountLoading
 } from './store/reducers/counterSlice'
+import cityService from './services/cityService'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -14,6 +16,13 @@ function App() {
   const loading = useAppSelector(selectCountLoading)
 
   console.log('🚀loading---->', loading)
+
+  useEffect(() => {
+    ;(async () => {
+      const res = await cityService.getAll()
+      console.log('🚀res---->', res.data)
+    })()
+  }, [])
 
   return (
     <main>
